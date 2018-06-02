@@ -1,0 +1,61 @@
+\begin{lstlisting}
+
+void insercion(sCelda* cells , int i, int j)
+{
+  for(int k = i + 1; k <= j; k++)
+  {
+    sCelda tmp = cells[k];
+    int l = k;
+    while((l > i) && (cells[l] < cells[l - 1]))
+    {
+      cells[l] = cells[l - 1];
+      l--;
+    }
+    cells[l] = tmp;
+  }
+}
+
+void fusion(sCelda* v, int i, int k, int j)
+{
+  int n = j - i + 1;
+  int p = i;
+  int q = k + 1;
+  
+  sCelda w[n];
+  
+  for(int l = 0; l <= n; l++)
+  {
+    if(p <= k && (q > j || v[p].punt <= v[q].punt))
+    { 
+      w[l] = v[p];
+      p++;
+    }
+    else
+    {
+      w[l] = v[q];
+      q++;
+    }
+  }
+  for(int l = 0; l < n; l++)
+  {
+    v[i + l] = w[l];
+  }
+}
+void ordfusion(sCelda* v, int i , int j)
+{
+  int n = j - i + 1;
+  if(n <= 2)
+  {
+    insercion(v,i,j);
+  }
+  else
+  {
+    int k = i - 1 + n/2;
+    ordfusion(v,i,k);
+    ordfusion(v,k+1,j);
+    fusion(v,i,k,j);
+    
+  }
+  
+}
+\end{lstlisting}

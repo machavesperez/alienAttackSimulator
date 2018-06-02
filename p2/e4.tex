@@ -1,0 +1,22 @@
+\begin{lstlisting}
+
+    i = defenses.size()-1;
+    int j = ases-1;
+    std::list<Defense*>::iterator asignar = defenses.end();
+    --asignar;
+
+    while(i > 0)
+    {
+    	if(matriz[i][j] != matriz[i-1][j])
+    	{
+	    	selectedIDs.push_back((*asignar)->id);
+	    	j = j - (*asignar)->cost;
+    	}	
+    	--i;
+	    --asignar;	
+    }
+
+    if(matriz[0][j] != 0)
+    	selectedIDs.push_back((*asignar)->id);
+
+\end{lstlisting}

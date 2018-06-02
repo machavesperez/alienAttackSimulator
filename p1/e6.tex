@@ -1,0 +1,71 @@
+\begin{lstlisting}
+
+void DEF_LIB_EXPORTED placeDefenses(bool** freeCells, int nCellsWidth, int nCellsHeight, float mapWidth, float mapHeight
+              , std::list<Object*> obstacles, std::list<Defense*> defenses) 
+{
+
+  float cellWidth = mapWidth / nCellsWidth; //Calculamos el ancho de una celda
+  float cellHeight = mapHeight / nCellsHeight; //Calculamos el alto de una celda
+  float** valorCelda = new float*[nCellsHeight]; // Puntuación para las celdas
+
+  //Inicializamos todas las celdas del mapa con el valor nulo
+  for(int i=0; i<nCellsHeight; i++)
+  {
+    valorCelda[i] = new float[nCellsHeight];
+    for(int j=0; j<nCellsHeight; j++)
+    valorCelda[i][j] = 0;
+  }
+
+  //Algoritmo voraz del ejercicio 3
+
+  currentDefense++;
+
+  //Valores de celdas para defensas
+  valorCeldaDefensas(valorCelda,cellHeight,defenses,nCellsWidth);
+
+  //Algorizmo voraz para la colocacion de las defensas
+  while(currentDefense != defenses.end())//mientras que haya defensas
+  {
+    int coorX,coorY;
+
+    seleccion(valorCelda, &coorX, &coorY,nCellsWidth);//seleccionamos candidatos
+    
+    //Punto medio
+    int puntoMedioY = coorY*cellHeight + cellHeight/2;
+    int puntoMedioX = coorX*cellWidth + cellWidth/2;
+    
+    //Comprobacion si es posible esa solucion
+    if(factibilidad(puntoMedioX,puntoMedioY,obstacles,defenses,(*currentDefense)->radio,mapWidth))
+    {   
+      (*currentDefense)->position.x = puntoMedioX;
+      (*currentDefense)->position.y = puntoMedioY;
+      (*currentDefense)->position.z = 0; 
+      currentDefense++;
+    }
+  }
+
+  delete [] valorCelda;
+    
+}
+
+void seleccion(float** valorCelda, int *coorX, int *coorY,int nCelda)
+{
+  float candidato = valorCelda[0][0];
+  
+  //Inicializamos al infinito
+  valorCelda[*coorX][*coorY] = std::numeric_limits<float>::max();
+  *coorX = 0;
+  *coorY = 0;
+  for(int i = 1; i < nCelda; i++)
+    for(int j = 1; j < nCelda; j++)
+    {
+      if(valorCelda[i][j] < candidato)
+      {
+        *coorX = i;
+        *coorY = j;
+        candidato = valorCelda[i][j];
+      }
+    }
+}
+
+\end{lstlisting}

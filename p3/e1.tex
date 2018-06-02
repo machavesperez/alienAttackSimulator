@@ -1,0 +1,16 @@
+Para el primer caso en donde no hay ordenamiento, que es la función conMatriz, hemos utilizado una matriz para representar el terreno de batalla en tanta filas y columnas como tiene la misma y el valor calculado para colocar el centro de extracción.
+Mientras que con los demás casos (con preordenación) utilizamos un vector de estructuras de tipo celda, esta estructura tipo celda se compone de:
+
+struct celda
+{
+  int x;
+  int y;
+  float punt;
+  struct celda operator =(const struct celda& c2)
+  {
+    x = c2.x;
+    y = c2.y;
+    punt = c2.punt;
+    return *this;
+  }
+}

@@ -1,0 +1,62 @@
+
+\begin{lstlisting}
+void DEF_LIB_EXPORTED placeDefenses3(bool** freeCells, int nCellsWidth, int nCellsHeight, float mapWidth, float mapHeight
+              , List<Object*> obstacles, List<Defense*> defenses) 
+{
+
+  float cellWidth = mapWidth / nCellsWidth;
+  float cellHeight = mapHeight / nCellsHeight; 
+
+
+#ifdef PRUEBAS_CAJA_NEGRA
+    sCelda celdas[10];
+    sCelda w[10];
+    for(int i=0;i<10;++i) {
+        celdas[i].punt = i;
+        celdas[i].x = 0;
+        celdas[i].y = 0;
+    }
+    
+    while ( std::next_permutation(celdas, celdas+10)) {
+      
+      for(int i = 0; i < 10; i++)
+      {
+        w[i] = celdas[i];
+      }
+      
+        ordfusion(w,0, 10-1);
+        if(!ordenado(w))
+            std::cout << "Error" << std::endl ;
+    }
+  
+    for(int i=0 ; i < 10 ; ++i) {
+        celdas[i].punt = i;
+        celdas[i].x = 0;
+        celdas[i].y = 0;
+    }
+    
+    while ( std::next_permutation(celdas, celdas+10)) {
+    
+        for(int i = 0; i < 10; i++)
+      {
+        w[i] = celdas[i];
+      }
+      
+        ordrapida(w,0,10-1);
+        if(!ordenado(w)) 
+            std::cout << "Error" << std::endl ;
+    }
+}
+
+bool ordenado(sCelda w[])
+{
+  bool check = true;
+  
+  for(int i = 0; (i < 10 - 1) && (check == true); i++)
+  {
+    if(w[i].punt > w[i+1].punt) {check = false;}
+  }
+  return check;
+}
+
+\end{lstlisting}

@@ -1,0 +1,53 @@
+\begin{lstlisting}
+
+void insercion(sCelda* cells , int i, int j)
+{
+  for(int k = i + 1; k <= j; k++)
+  {
+    sCelda tmp = cells[k];
+    int l = k;
+    while((l > i) && (cells[l] < cells[l - 1]))
+    {
+      cells[l] = cells[l - 1];
+      l--;
+    }
+    cells[l] = tmp;
+  }
+}
+
+int pivote(sCelda* v, int i , int j)
+{
+  int p = i;
+  sCelda tmp = v[i];
+  sCelda aux;
+  for(int k = i + 1; k <= j; k++)
+  {
+    if(v[k].punt <= tmp.punt)
+    {
+      p++;
+      aux = v[p];
+      v[p] = v[k];
+      v[k] = aux;
+    }
+  }
+  v[i] = v[p];
+  v[p] = tmp;
+  return p;
+}
+
+void ordrapida(sCelda* v, int i, int j)
+{
+  int n = j - i + 1;
+  if(n <= 2)
+  {
+    insercion(v,i,j);
+  }
+  else
+  {
+    int p = pivote(v,i,j);
+    ordrapida(v,i,p-1);
+    ordrapida(v,p+1,j);
+  }
+}
+
+\end{lstlisting}

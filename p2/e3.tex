@@ -1,0 +1,54 @@
+\begin{lstlisting}
+
+void asignarValor(std::list<Defense*> defenses, float* valor)
+{
+	float dano=0, ataque=0,rango=0, vida=0, dispersion=0;
+	int nDefensa=0;
+
+	for(std::list<Defense*>::iterator defensa  = defenses.begin(); defensa != defenses.end(); defensa++)
+	{
+		dano = (20*(*defensa)->damage);
+		ataque = (20*(*defensa)->attacksPerSecond);
+		rango = (20*(*defensa)->range);
+		vida = (30*(*defensa)->health);
+		dispersion = (10*(*defensa)->dispersion);
+
+		valor[nDefensa] = dano + ataque + rango + vida + dispersion;
+		nDefensa++;
+	}
+	valor[0] = 9999999999;
+}
+
+
+    	float matriz[defenses.size()][ases];
+	float valor[defenses.size()];
+
+	
+	asignarValor(defenses,valor);
+
+	std::list<Defense*>::iterator defensa = defenses.begin();
+
+	for(int i = 0; i <= ases; i++)
+	{
+		if(i < (*defensa)->cost)
+			matriz[0][i] = 0;
+		else
+			matriz[0][i] = valor[0];
+	}
+	++defensa;
+	int i = 1;
+
+	while(defensa != defenses.end())
+	{
+		for(int j = 0; j <= ases; ++j)
+		{
+			if(j < (*defensa)->cost)
+				matriz[i][j] = matriz[i-1][j];
+			else
+				matriz[i][j] = std::max(matriz[i-1][j], matriz[i-1][j-(*defensa)->cost] + valor[i]);
+		}
+		++i;
+		++defensa;
+	}
+
+\end{lstlisting}

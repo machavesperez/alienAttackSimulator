@@ -1,0 +1,46 @@
+\begin{lstlisting}
+void DEF_LIB_EXPORTED placeDefenses(bool** freeCells, int nCellsWidth, int nCellsHeight, float mapWidth, float mapHeight
+              , std::list<Object*> obstacles, std::list<Defense*> defenses) 
+{
+
+  float cellWidth = mapWidth / nCellsWidth; //Calculamos el ancho de una celda
+  float cellHeight = mapHeight / nCellsHeight; //Calculamos el alto de una celda
+  float** valorCelda = new float*[nCellsHeight]; // Puntuación para las celdas
+
+  //Inicializamos todas las celdas del mapa con el valor nulo
+  for(int i=0; i<nCellsHeight; i++)
+  {
+    valorCelda[i] = new float[nCellsHeight];
+    for(int j=0; j<nCellsHeight; j++)
+    valorCelda[i][j] = 0;
+  }
+
+  List<Defense*>::iterator currentDefense = defenses.begin();
+
+  //Valores de las celda para la colocacion del centro extrator
+  valorCeldaExtratora(valorCelda,cellHeight,obstacles,nCellsWidth);
+    
+  bool asignada = false;
+
+  //Algorizmo voraz para la colocacion de la celda extractora
+  while(!asignada)//mientras que no se haya asignado el valor a la celda extratora
+  {
+    int coorX,coorY;
+
+    seleccion(valorCelda, &coorX, &coorY,nCellsWidth);//Seleccionamos candidatos
+    
+    //puntos medios
+    float puntoMedioY = coorY*cellHeight + cellHeight/2;
+    float puntoMedioX = coorX*cellWidth + cellWidth/2;
+
+    //Comprobacion si es posible esa solucion
+    if(factibilidad(puntoMedioX,puntoMedioY,obstacles,defenses,(*currentDefense)->radio,mapWidth))
+    {   
+      (*currentDefense)->position.x = puntoMedioX;
+      (*currentDefense)->position.y = puntoMedioY;
+      (*currentDefense)->position.z = 0; 
+      asignada = true;
+    }
+  }
+}
+\end{lstlisting}

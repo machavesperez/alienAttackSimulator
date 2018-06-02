@@ -1,0 +1,22 @@
+Escriba aquí su respuesta al ejercicio 1. 
+
+La función diseñada para determinar el valor de cada una de las celdas para la extracción de minerales es:
+
+Primero determinar la celda del centro del mapa, y luego, recorro todos los obstáculo y determino cual de ellos están más cercanos al centro del mapa, para determinar que objeto están más cercanos, he optado por la ecuación euclídeas que sumaran la distancia de ese objeto con la celda del centro del mapa, con ello se intenta conseguir el obstáculo mas centrado del mapa.
+
+Una vez obtenido el obstáculo candidato, empiezo a recorrer todas las celdas, guardando las distancias euclídeas de la posición de esa celda respecto al objeto candidato. Con esto se intenta conseguir que las celdas mas cercana a la roca candidata tenga un valor inferior a las celdas mas alejadas.
+
+Si he optado por esta estrategia es porque el centro del mapa es el punto más alejado de todos los bordes del mapa y por lo tanto mas alejados desde donde salen los ucos y consecuentemente esos segundos en llegar al centro del mapa sera un tiempo adicionales ganados.
+
+% Elimine los símbolos de tanto por ciento para descomentar las siguientes instrucciones e incluir una imagen en su respuesta. La mejor ubicación de la imagen será determinada por el compilador de Latex. No tiene por qué situarse a continuación en el fichero en formato pdf resultante.
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{./defenseValueCellsHead} % no es necesario especificar la extensión del archivo que contiene la imagen
+\caption{Estrategia devoradora para la mina}
+\label{fig:defenseValueCellsHead}
+\end{figure}
+
+
+
+
+
